@@ -1,4 +1,7 @@
 
+let playerWins = 0;
+let computerWins = 0;
+
 function getComputerChoice() {
    
     let computerMove;
@@ -50,31 +53,50 @@ function gameRound() {
 
 let computerChoice = getComputerChoice();
 let userChoice = getPlayerChoice();
+;
 
     if (userChoice == computerChoice) {
         alert("The game is a draw");
     }
     else if (userChoice == "rock" && computerChoice == "scissors") {
         alert(`You win! ${userChoice} beats ${computerChoice}`);
+        playerWins++;
     }
     else if (userChoice == "paper" && computerChoice == "rock") {
         alert(`You win! ${userChoice} beats ${computerChoice}`);
+        playerWins++;
     }
     else if (userChoice == "scissors" && computerChoice == "paper") {
         alert(`You win! ${userChoice} beats ${computerChoice}`);
+        playerWins++;
     }
     else {
         alert(`You lose! ${computerChoice} beats ${userChoice}`);
+        computerWins++;
     }
-
+    return playerWins && computerWins;
 }
 
 function game() {
 
-    for (let gameRoundPlayed = 1; gameRoundPlayed <= 5; gameRoundPlayed++) {
+    let gameRoundPlayed = 1;
+
+    for (gameRoundPlayed = 1; gameRoundPlayed <= 5; gameRoundPlayed++) {
         gameRound();
         console.log(gameRoundPlayed);
+        console.log(`player wins is ${playerWins}`);
+        if (gameRoundPlayed == 5 && playerWins > computerWins) {
+        alert(`You win by ${playerWins} to ${computerWins}`);
     }
+    else if (gameRoundPlayed == 5 && playerWins < computerWins) {
+        alert(`You lose by ${computerWins} to ${playerWins}`);
+    }
+    else if (gameRoundPlayed == 5 && playerWins == computerWins) {
+        alert("The game has ended in a draw");
+    }
+    }
+    
+    
 }
 
 game();
