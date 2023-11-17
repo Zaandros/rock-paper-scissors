@@ -3,15 +3,16 @@ let playerWins = 0;
 let computerWins = 0;
 let choice = "";
 let gameRoundPlayed = 0;
+let runningScoreDiv = document.querySelector(".running-score");
+const ROCK = document.querySelector(".rock");
+const PAPER = document.querySelector(".paper");
+const SCISSORS = document.querySelector(".scissors");
 
 
 
 function startGame() {
-    console.log(gameRoundPlayed);
-    const ROCK = document.querySelector(".rock");
-    const PAPER = document.querySelector(".paper");
-    const SCISSORS = document.querySelector(".scissors");
 
+    console.log(gameRoundPlayed);
 
     ROCK.addEventListener("click", getRock);
     PAPER.addEventListener("click", getPaper);
@@ -40,22 +41,23 @@ function game() {
 
 
     do {
+        
         gameRound();
         console.log("The rounds played is " + gameRoundPlayed);
+        //runningScoreDiv.style.visibility = "visible";
+        runningScoreDiv.textContent = `Player score ${playerWins} ${computerWins} Computer score`
         console.log(`player wins is ${playerWins}`);
-        if (gameRoundPlayed == 5 && playerWins > computerWins) {
-        alert(`You win by ${playerWins} to ${computerWins}`);
+        if (playerWins == 5) {
+            alert("Player wins");
+        endGame();
         break;
     }
-    else if (gameRoundPlayed == 5 && playerWins < computerWins) {
-        alert(`You lose by ${computerWins} to ${playerWins}`);
+    else if (computerWins == 5) {
+        alert("Computer wins");
+        endGame();
         break;
     }
-    else if (gameRoundPlayed == 5 && playerWins == computerWins) {
-        alert("The game has ended in a draw");
-        break;
-    }
-    else if (gameRoundPlayed < 5) {
+    else if (playerWins < 5 || computerWins < 5) {
         startGame();
         break;
     }
@@ -71,6 +73,7 @@ let userChoice = getPlayerChoice();
 
 
     if (userChoice == computerChoice) {
+        
         alert("The game is a draw");
         gameRoundPlayed++
     }
@@ -147,6 +150,22 @@ function getPlayerChoice() {
         
 }
 
+function endGame() {
+    
+
+    ROCK.setAttribute("disabled", "disabled");
+    PAPER.setAttribute("disabled", "disabled");
+    SCISSORS.setAttribute("disabled", "disabled");
+    
+    
+}
+
+function restartGame() {
+    const BODY = document.getElementsByClassName("running-score");
+    let restartGame = document.createElement('div');
+    restartGame.textContent = "Restart";
+    BODY.appendchild(restartGame);
+}
 
 startGame();
 
