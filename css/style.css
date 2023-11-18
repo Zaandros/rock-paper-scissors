@@ -33,19 +33,27 @@ body {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+    max-width: 133px;
+    min-width: 133px;
+    flex: none;
+    
     
 }
 
 .player-choice {
     align-self: center;
     margin: 5px;
-    border: 2px solid black;
+    max-width: 53px;
+    min-width: 53px;
+   
 }
 
 .computer-choice {
     align-self: center;
     margin: 5px;
-    border: 2px solid black;
+    max-width: 53px;
+    min-width: 53px;
+    
 }
 
 .computer-selection {
