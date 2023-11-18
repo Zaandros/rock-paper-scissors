@@ -7,13 +7,17 @@ let runningScoreDiv = document.querySelector(".running-score");
 const ROCK = document.querySelector(".rock");
 const PAPER = document.querySelector(".paper");
 const SCISSORS = document.querySelector(".scissors");
+const computerChoice = document.querySelector(".computer-choice")
+const playerChoice = document.querySelector(".player-choice");
 
+computerChoice.style.visibility = "hidden";
+playerChoice.style.visibility = "hidden";
 
 
 function startGame() {
 
     console.log(gameRoundPlayed);
-
+    
     ROCK.addEventListener("click", getRock);
     PAPER.addEventListener("click", getPaper);
     SCISSORS.addEventListener("click", getScissors);
@@ -45,15 +49,15 @@ function game() {
         gameRound();
         console.log("The rounds played is " + gameRoundPlayed);
         //runningScoreDiv.style.visibility = "visible";
-        runningScoreDiv.textContent = `Player score ${playerWins} ${computerWins} Computer score`
+        runningScoreDiv.textContent = `Player score ${playerWins} ${computerWins} Computer score`;
         console.log(`player wins is ${playerWins}`);
         if (playerWins == 5) {
-            alert("Player wins");
+            runningScoreDiv.textContent = `Player wins by ${playerWins} to ${computerWins}`;
         endGame();
         break;
     }
     else if (computerWins == 5) {
-        alert("Computer wins");
+        runningScoreDiv.textContent = `Computer wins by ${computerWins} to ${playerWins}`;
         endGame();
         break;
     }
@@ -73,27 +77,21 @@ let userChoice = getPlayerChoice();
 
 
     if (userChoice == computerChoice) {
-        
-        alert("The game is a draw");
         gameRoundPlayed++
     }
     else if (userChoice == "rock" && computerChoice == "scissors") {
-        alert(`You win! ${userChoice} beats ${computerChoice}`);
         gameRoundPlayed++
         playerWins++;
     }
     else if (userChoice == "paper" && computerChoice == "rock") {
-        alert(`You win! ${userChoice} beats ${computerChoice}`);
         gameRoundPlayed++
         playerWins++;
     }
     else if (userChoice == "scissors" && computerChoice == "paper") {
-        alert(`You win! ${userChoice} beats ${computerChoice}`);
         gameRoundPlayed++
         playerWins++;
     }
     else {
-        alert(`You lose! ${computerChoice} beats ${userChoice}`);
         gameRoundPlayed++
         computerWins++;
     }
@@ -104,17 +102,22 @@ let userChoice = getPlayerChoice();
 function getComputerChoice() {
    
     let computerMove;
-
-   let choice = Math.floor((Math.random() * 3) + 1);
+    let choice = Math.floor((Math.random() * 3) + 1);
 
    if (choice == 1) {
     computerMove = "rock"
+    computerChoice.style.visibility = "visible";
+    computerChoice.textContent = "Rock";
    }
    else if (choice == 2) {
     computerMove = "paper"
+    computerChoice.style.visibility = "visible";
+    computerChoice.textContent = "Paper";
    }
    else {
     computerMove = "scissors"
+    computerChoice.style.visibility = "visible";
+    computerChoice.textContent = "Scissors";
    }
      return computerMove;
 }
@@ -129,14 +132,20 @@ function getPlayerChoice() {
         switch (choice) {
             case "rock":
                 correct++
+                playerChoice.style.visibility = "visible";
+                playerChoice.textContent = "Rock";
                 return choice;
                 break;
             case "paper":
                 correct++
+                playerChoice.style.visibility = "visible";
+                playerChoice.textContent = "Paper";
                 return choice;
                 break;
             case "scissors":
                 correct++
+                playerChoice.style.visibility = "visible";
+                playerChoice.textContent = "Scissors";
                 return choice;
                 break;
             default:
@@ -151,20 +160,20 @@ function getPlayerChoice() {
 }
 
 function endGame() {
-    
 
-    ROCK.setAttribute("disabled", "disabled");
-    PAPER.setAttribute("disabled", "disabled");
-    SCISSORS.setAttribute("disabled", "disabled");
-    
-    
+    ROCK.style.visibility = "hidden";
+    SCISSORS.style.visibility = "hidden";
+    PAPER.textContent = "Restart";
+    PAPER.addEventListener("click", restartGame);
 }
 
 function restartGame() {
-    const BODY = document.getElementsByClassName("running-score");
-    let restartGame = document.createElement('div');
-    restartGame.textContent = "Restart";
-    BODY.appendchild(restartGame);
+    playerWins = 0;
+    computerWins = 0;
+    computerChoice.style.visibility = "hidden";
+    playerChoice.style.visibility = "hidden";
+    runningScoreDiv.textContent = `Player score ${playerWins} ${computerWins} Computer score`;
+    location.reload();
 }
 
 startGame();
